@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Tareas</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #2c3e50;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .container h1 {
+            margin: 0 0 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .task-input {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .task-input input {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .task-input button {
+            margin-left: 10px;
+            padding: 10px 15px;
+            background-color: #2e86de;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .task-input button:hover {
+            background-color: #1b4f8b;
+        }
+
+        .tasks {
+            min-height: 100px;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+
+        .task {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ecf0f1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .task.completed {
+            text-decoration: line-through;
+            background: #c4e3f7;
+        }
+
+        .task button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .task .complete-btn {
+            color: #2ecc71;
+        }
+
+        .task .delete-btn {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Mis Tareas</h1>
+        <div class="task-input">
+            <input type="text">
+            <button>Crear Tarea</button>
+        </div>
+        <ul class="tasks">
+            <!-- Aquí se mostrarán las tareas -->
+        </ul>
+    </div>
+
+    <script>
+        const tasks = document.querySelector(".tasks");
+        const input = document.querySelector(".task-input input");
+        const btn = document.querySelector(".task-input button");
+
+        btn.addEventListener("click", () => {
+            const task = input.value.trim();
+            if (!task) return;
+
+            const li = document.createElement("li");
+            li.classList.add("task");
+
+            li.innerHTML = `
+                <span>${task}</span>
+                <div>
+                    <button class="complete-btn">✔</button>
+                    <button class="delete-btn">🗑</button>
+                </div>
+            `;
+
+            tasks.appendChild(li);
+            input.value = "";
+
+            const completeBtn = li.querySelector(".complete-btn");
+            const deleteBtn = li.querySelector(".delete-btn");
+
+            completeBtn.addEventListener("click", () => {
+                li.classList.toggle("completed");
+            });
+
+            deleteBtn.addEventListener("click", () => {
+                li.remove();
+            });
+        });
+    </script>
+</body>
+</html>
